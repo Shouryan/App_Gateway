@@ -1,0 +1,42 @@
+server:
+  port: 8077
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: loginServiceRoute
+          predicates:
+            - Path=/loginService/**
+          uri: lb://login-service/
+        - id: policyOwnedApp
+          predicates:
+            - Path=/policyOwnedApp/**
+          uri: lb://policy-owned-service/
+        - id: FeedbackService
+          predicates:
+            - Path=/feedbackService/**
+          uri: lb://feedback-service/
+        - id: DashboardService
+          predicates:
+            - Path=/home/**
+          uri: lb://dashboard-service/
+        - id: InsuranceCart
+          predicates:
+            - Path=/Insurancecart/**
+          uri: lb://insurance-cart-service/  
+          
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7777/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
