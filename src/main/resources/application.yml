@@ -1,6 +1,15 @@
-server:
-  port: 8077
 spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/User
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Nte#25
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+
   application:
     name: gateway
 
@@ -27,7 +36,11 @@ spring:
           predicates:
             - Path=/Insurancecart/**
           uri: lb://insurance-cart-service/  
-          
+  logging:
+    level:
+      org.springframework.web: DEBUG
+server:
+  port: 8077          
 eureka:
   client:
     service-url:
